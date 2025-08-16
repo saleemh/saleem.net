@@ -1,0 +1,176 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+  line-height: 1.4;
+}
+
+/* Theme system */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Default black theme */
+body.theme-black {
+  background-color: #000;
+  color: #ccc;
+}
+
+body.theme-black .tile:hover,
+body.theme-black .tile:focus {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Green CRT theme */
+body.theme-green {
+  background-color: #001100;
+  color: #00ff00;
+}
+
+body.theme-green .tile:hover,
+body.theme-green .tile:focus {
+  background-color: #003300;
+  color: #00ff88;
+}
+
+/* Blue DOS theme */
+body.theme-blue {
+  background-color: #000055;
+  color: #aaaaff;
+}
+
+body.theme-blue .tile:hover,
+body.theme-blue .tile:focus {
+  background-color: #0000aa;
+  color: #ffffff;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Grid layout */
+.tiles-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+/* Multi-column layout when 4+ projects */
+.tiles-grid.has-many {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Individual tile */
+.tile {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border: 2px solid currentColor;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tile:hover,
+.tile:focus {
+  outline: none;
+  transform: translateY(-2px);
+}
+
+/* ASCII box content */
+.tile-content {
+  font-family: inherit;
+  white-space: pre-line;
+  word-wrap: break-word;
+  min-height: 120px;
+}
+
+/* Expanded state */
+.tile.expanded .tile-content {
+  min-height: auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tile {
+    max-width: 100%;
+    padding: 15px;
+  }
+  
+  .tiles-grid.has-many {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Touch device adjustments */
+@media (hover: none) and (pointer: coarse) {
+  .tile {
+    transition: background-color 0.2s ease;
+  }
+}
+
+/* Accessibility */
+.tile:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-style: italic;
+}
+
+/* Error state */
+.error {
+  text-align: center;
+  padding: 40px;
+  color: #ff6666;
+}
+
+/* Noscript fallback */
+.noscript-message {
+  text-align: center;
+  padding: 40px;
+  border: 2px solid currentColor;
+  margin: 20px;
+}
