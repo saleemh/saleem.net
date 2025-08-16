@@ -1,0 +1,27 @@
+name: Deploy Production
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+concurrency:
+  group: prod-deploy-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Add VPS host key to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t ed25519 72.167.41.196 >> ~/.ssh/known_hosts
+      - name: Run site deploy script on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 72.167.41.196
+          username: deploy
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            sudo /usr/local/bin/deploy-saleem-net-prod
