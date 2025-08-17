@@ -58,19 +58,24 @@ body.theme-blue .tile:focus {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-top: 15vh;
+  margin-bottom: 8vh;
 }
 
 .header h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin: 0;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-transform: none;
+  font-weight: normal;
 }
 
 /* Grid layout */
@@ -96,15 +101,18 @@ body.theme-blue .tile:focus {
   width: 100%;
   max-width: 400px;
   padding: 20px;
-  border: 2px solid currentColor;
+  border: 1px solid currentColor;
   transition: all 0.3s ease;
   cursor: pointer;
+  border-radius: 0;
 }
 
 .tile:hover,
 .tile:focus {
   outline: none;
   transform: translateY(-2px);
+  border-width: 2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* ASCII box content */
@@ -126,8 +134,14 @@ body.theme-blue .tile:focus {
     padding: 15px;
   }
   
+  .header {
+    margin-top: 10vh;
+    margin-bottom: 6vh;
+  }
+  
   .header h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
   }
   
   .tile {
@@ -137,6 +151,22 @@ body.theme-blue .tile:focus {
   
   .tiles-grid.has-many {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    margin-top: 8vh;
+    margin-bottom: 5vh;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+    letter-spacing: 1.5px;
+  }
+  
+  .container {
+    padding: 10px;
   }
 }
 

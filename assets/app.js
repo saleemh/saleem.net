@@ -14,6 +14,7 @@ class LabsApp {
     this.setupTheme();
     this.setupKeyboardNavigation();
     this.setupTouchNavigation();
+    this.setupResizeHandler();
     await this.loadProjects();
     this.renderProjects();
   }
@@ -63,6 +64,16 @@ class LabsApp {
     this.handleSwipe = handleSwipe;
   }
 
+  setupResizeHandler() {
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.renderProjects();
+      }, 250);
+    });
+  }
+
   async loadProjects() {
     try {
       const response = await fetch('/data/projects.json');
@@ -109,7 +120,7 @@ class LabsApp {
 
   generateTileContent(project) {
     const lines = [...project.collapsed];
-    const maxWidth = 44;
+    const maxWidth = this.getOptimalBoxWidth();
     
     // Create ASCII box
     const topBorder = '+' + '-'.repeat(maxWidth - 2) + '+';
@@ -135,7 +146,7 @@ class LabsApp {
 
   generateExpandedContent(project) {
     const allLines = [...project.collapsed, ...(project.expanded || [])];
-    const maxWidth = 44;
+    const maxWidth = this.getOptimalBoxWidth();
     
     const topBorder = '+' + '-'.repeat(maxWidth - 2) + '+';
     const bottomBorder = topBorder;
@@ -151,6 +162,23 @@ class LabsApp {
     });
 
     return [topBorder, ...contentLines, bottomBorder].join('\n');
+  }
+
+  getOptimalBoxWidth() {
+    // Calculate optimal box width based on screen size
+    const screenWidth = window.innerWidth;
+    const containerPadding = 40; // 20px on each side
+    const tilePadding = 40; // tile padding
+    const availableWidth = screenWidth - containerPadding - tilePadding;
+    
+    // Each character is roughly 0.6em in monospace font
+    // Assuming 1em ≈ 16px, each char ≈ 9.6px
+    const charWidth = 10;
+    const maxChars = Math.floor(availableWidth / charWidth);
+    
+    // Set reasonable bounds: minimum 30, maximum 44, prefer even numbers
+    const bounded = Math.max(30, Math.min(44, maxChars));
+    return bounded % 2 === 0 ? bounded : bounded - 1;
   }
 
   setupTileInteractions() {
