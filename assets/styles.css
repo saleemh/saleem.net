@@ -124,6 +124,11 @@ body.theme-blue .tile:focus {
   text-align: left;
 }
 
+/* First line (project title) styling */
+.tile-content .project-title {
+  font-weight: bold;
+}
+
 /* Expanded state */
 .tile.expanded .tile-content {
   min-height: auto;

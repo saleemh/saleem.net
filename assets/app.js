@@ -121,8 +121,13 @@ class LabsApp {
   generateTileContent(project) {
     const lines = [...project.collapsed];
     
-    const contentLines = lines.map(line => {
-      return line.length > 40 ? line.substring(0, 37) + '...' : line;
+    const contentLines = lines.map((line, index) => {
+      const truncatedLine = line.length > 40 ? line.substring(0, 37) + '...' : line;
+      // Make the first line bold
+      if (index === 0) {
+        return `<span class="project-title">${truncatedLine}</span>`;
+      }
+      return truncatedLine;
     });
 
     return contentLines.join('\n');
@@ -131,8 +136,13 @@ class LabsApp {
   generateExpandedContent(project) {
     const allLines = [...project.collapsed, ...(project.expanded || [])];
     
-    const contentLines = allLines.map(line => {
-      return line.length > 40 ? line.substring(0, 37) + '...' : line;
+    const contentLines = allLines.map((line, index) => {
+      const truncatedLine = line.length > 40 ? line.substring(0, 37) + '...' : line;
+      // Make the first line bold
+      if (index === 0) {
+        return `<span class="project-title">${truncatedLine}</span>`;
+      }
+      return truncatedLine;
     });
 
     return contentLines.join('\n');
@@ -206,7 +216,7 @@ class LabsApp {
     this.expandedTiles.add(project.id);
     
     const content = tile.querySelector('.tile-content');
-    content.textContent = this.generateExpandedContent(project);
+    content.innerHTML = this.generateExpandedContent(project);
   }
 
   collapseTile(tile, project) {
@@ -214,7 +224,7 @@ class LabsApp {
     this.expandedTiles.delete(project.id);
     
     const content = tile.querySelector('.tile-content');
-    content.textContent = this.generateTileContent(project);
+    content.innerHTML = this.generateTileContent(project);
   }
 
   trackProjectClick(projectId, url) {
