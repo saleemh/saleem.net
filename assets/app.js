@@ -112,7 +112,7 @@ class LabsApp {
   renderTile(project) {
     const content = this.generateTileContent(project);
     return `
-      <a href="/r/${project.id}" class="tile" data-project-id="${project.id}" role="listitem">
+      <a href="${project.url || '#'}" class="tile" data-project-id="${project.id}" data-url="${project.url || ''}" role="listitem">
         <div class="tile-content">${content}</div>
       </a>
     `;
@@ -138,13 +138,17 @@ class LabsApp {
     return contentLines.join('\n');
   }
 
-
   setupTileInteractions() {
     const tiles = document.querySelectorAll('.tile');
     
     tiles.forEach(tile => {
       const projectId = tile.dataset.projectId;
       const project = this.projects.find(p => p.id === projectId);
+      
+      // Add click tracking for all tiles
+      tile.addEventListener('click', (e) => {
+        this.trackProjectClick(projectId, tile.dataset.url);
+      });
       
       if (!project || !project.expanded || project.expanded.length === 0) {
         return; // No expanded content available
@@ -213,6 +217,86 @@ class LabsApp {
     content.textContent = this.generateTileContent(project);
   }
 
+  trackProjectClick(projectId, url) {
+    // Option 1: Google Analytics (if available)
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'project_click', {
+        'project_id': projectId,
+        'destination_url': url
+      });
+    }
+    
+    // Option 2: Plausible Analytics (if available)
+    if (typeof plausible !== 'undefined') {
+      plausible('Project Click', {
+        props: {
+          project: projectId,
+          url: url
+        }
+      });
+    }
+    
+    // Option 3: Custom analytics storage
+    this.logAnalytics('project_click', { 
+      projectId, 
+      url, 
+      timestamp: Date.now(),
+      userAgent: navigator.userAgent,
+      referrer: document.referrer,
+      screenSize: `${screen.width}x${screen.height}`,
+      viewport: `${window.innerWidth}x${window.innerHeight}`,
+      theme: this.currentTheme
+    });
+  }
+
+  logAnalytics(event, data) {
+    try {
+      const analytics = JSON.parse(localStorage.getItem('site_analytics') || '[]');
+      analytics.push({ event, data });
+      
+      // Keep only last 100 events to prevent storage bloat
+      if (analytics.length > 100) {
+        analytics.splice(0, analytics.length - 100);
+      }
+      
+      localStorage.setItem('site_analytics', JSON.stringify(analytics));
+      
+      // Optional: Send to your own analytics endpoint
+      // this.sendAnalyticsToServer(event, data);
+    } catch (error) {
+      console.warn('Analytics logging failed:', error);
+    }
+  }
+
+  // Optional: Method to export analytics data
+  exportAnalytics() {
+    const analytics = JSON.parse(localStorage.getItem('site_analytics') || '[]');
+    const blob = new Blob([JSON.stringify(analytics, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `saleem-net-analytics-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // Optional: Send analytics to your own server
+  async sendAnalyticsToServer(event, data) {
+    try {
+      await fetch('/api/analytics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ event, data })
+      });
+    } catch (error) {
+      // Silently fail if analytics endpoint is not available
+    }
+  }
+
   showError(message) {
     const container = document.getElementById('tiles-container');
     if (container) {
@@ -223,7 +307,7 @@ class LabsApp {
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new LabsApp();
+  window.labsApp = new LabsApp();
 });
 
 // Handle theme switching info
@@ -240,3 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
   info.textContent = 'Theme: ← → keys or swipe';
   document.body.appendChild(info);
 });
+
+// Debug helper: Export analytics from browser console
+// Usage: window.labsApp.exportAnalytics()

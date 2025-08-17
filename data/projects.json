@@ -1,6 +1,7 @@
 [
   {
     "id": "emera-game",
+    "url": "https://saleem.net/projects/emera-game",
     "collapsed": [
       "The Emera Game",
       "Single-player neon snake challenge",
@@ -14,6 +15,7 @@
   },
   {
     "id": "candy-bakery",
+    "url": "https://saleem.net/projects/candy-bakery",
     "collapsed": [
       "Candy Bakery",
       "Assemble candy & cake treats",
