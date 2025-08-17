@@ -165,19 +165,34 @@ class LabsApp {
   }
 
   getOptimalBoxWidth() {
-    // Calculate optimal box width based on screen size
+    // Get the actual available width more accurately
     const screenWidth = window.innerWidth;
-    const containerPadding = 40; // 20px on each side
-    const tilePadding = 40; // tile padding
+    
+    // Account for all padding and margins more conservatively
+    let containerPadding = 40; // Default container padding
+    let tilePadding = 40; // Default tile padding
+    
+    // Adjust for mobile breakpoints
+    if (screenWidth <= 480) {
+      containerPadding = 20; // 10px on each side
+      tilePadding = 30; // 15px tile padding
+    } else if (screenWidth <= 768) {
+      containerPadding = 30; // 15px on each side  
+      tilePadding = 30; // 15px tile padding
+    }
+    
     const availableWidth = screenWidth - containerPadding - tilePadding;
     
-    // Each character is roughly 0.6em in monospace font
-    // Assuming 1em ≈ 16px, each char ≈ 9.6px
-    const charWidth = 10;
+    // Use more conservative character width calculation
+    // Courier New is roughly 0.6em wide, with 1em = 16px default
+    // But be more conservative to account for browser differences
+    const charWidth = 11; // Slightly larger for safety
     const maxChars = Math.floor(availableWidth / charWidth);
     
-    // Set reasonable bounds: minimum 30, maximum 44, prefer even numbers
-    const bounded = Math.max(30, Math.min(44, maxChars));
+    // Set tighter bounds with more conservative maximum
+    const bounded = Math.max(24, Math.min(40, maxChars));
+    
+    // Ensure even number for symmetry
     return bounded % 2 === 0 ? bounded : bounded - 1;
   }
 
