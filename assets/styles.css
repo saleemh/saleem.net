@@ -100,7 +100,7 @@ body.theme-blue .tile:focus {
   color: inherit;
   width: 100%;
   max-width: 400px;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid currentColor;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -115,12 +115,14 @@ body.theme-blue .tile:focus {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* ASCII box content */
+/* Tile content */
 .tile-content {
   font-family: inherit;
   white-space: pre-line;
   word-wrap: break-word;
   min-height: 120px;
+  padding: 10px;
+  text-align: left;
 }
 
 /* Expanded state */

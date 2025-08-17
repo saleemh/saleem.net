@@ -120,66 +120,29 @@ class LabsApp {
 
   generateTileContent(project) {
     const lines = [...project.collapsed];
-    const maxWidth = this.getOptimalBoxWidth();
-    
-    // Create ASCII box
-    const topBorder = '+' + '-'.repeat(maxWidth - 2) + '+';
-    const bottomBorder = topBorder;
     
     const contentLines = lines.map(line => {
-      const paddedLine = line.length > maxWidth - 4 
-        ? line.substring(0, maxWidth - 7) + '...'
-        : line;
-      const padding = maxWidth - paddedLine.length - 4;
-      const leftPad = Math.floor(padding / 2);
-      const rightPad = padding - leftPad;
-      return '| ' + ' '.repeat(leftPad) + paddedLine + ' '.repeat(rightPad) + ' |';
+      return line.length > 40 ? line.substring(0, 37) + '...' : line;
     });
 
     // Add empty lines to maintain consistent height
     while (contentLines.length < 4) {
-      contentLines.push('| ' + ' '.repeat(maxWidth - 4) + ' |');
+      contentLines.push('');
     }
 
-    return [topBorder, ...contentLines, bottomBorder].join('\n');
+    return contentLines.join('\n');
   }
 
   generateExpandedContent(project) {
     const allLines = [...project.collapsed, ...(project.expanded || [])];
-    const maxWidth = this.getOptimalBoxWidth();
-    
-    const topBorder = '+' + '-'.repeat(maxWidth - 2) + '+';
-    const bottomBorder = topBorder;
     
     const contentLines = allLines.map(line => {
-      const paddedLine = line.length > maxWidth - 4 
-        ? line.substring(0, maxWidth - 7) + '...'
-        : line;
-      const padding = maxWidth - paddedLine.length - 4;
-      const leftPad = Math.floor(padding / 2);
-      const rightPad = padding - leftPad;
-      return '| ' + ' '.repeat(leftPad) + paddedLine + ' '.repeat(rightPad) + ' |';
+      return line.length > 40 ? line.substring(0, 37) + '...' : line;
     });
 
-    return [topBorder, ...contentLines, bottomBorder].join('\n');
+    return contentLines.join('\n');
   }
 
-  getOptimalBoxWidth() {
-    const screenWidth = window.innerWidth;
-    
-    // Use very aggressive mobile limits to prevent any wrapping
-    if (screenWidth <= 480) {
-      return 28; // Very conservative for small phones
-    } else if (screenWidth <= 600) {
-      return 32; // Conservative for larger phones
-    } else if (screenWidth <= 768) {
-      return 36; // Tablet portrait
-    } else if (screenWidth <= 1024) {
-      return 40; // Tablet landscape / small desktop
-    } else {
-      return 44; // Full desktop
-    }
-  }
 
   setupTileInteractions() {
     const tiles = document.querySelectorAll('.tile');
