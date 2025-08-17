@@ -165,35 +165,20 @@ class LabsApp {
   }
 
   getOptimalBoxWidth() {
-    // Get the actual available width more accurately
     const screenWidth = window.innerWidth;
     
-    // Account for all padding and margins more conservatively
-    let containerPadding = 40; // Default container padding
-    let tilePadding = 40; // Default tile padding
-    
-    // Adjust for mobile breakpoints
+    // Use very aggressive mobile limits to prevent any wrapping
     if (screenWidth <= 480) {
-      containerPadding = 20; // 10px on each side
-      tilePadding = 30; // 15px tile padding
+      return 28; // Very conservative for small phones
+    } else if (screenWidth <= 600) {
+      return 32; // Conservative for larger phones
     } else if (screenWidth <= 768) {
-      containerPadding = 30; // 15px on each side  
-      tilePadding = 30; // 15px tile padding
+      return 36; // Tablet portrait
+    } else if (screenWidth <= 1024) {
+      return 40; // Tablet landscape / small desktop
+    } else {
+      return 44; // Full desktop
     }
-    
-    const availableWidth = screenWidth - containerPadding - tilePadding;
-    
-    // Use more conservative character width calculation
-    // Courier New is roughly 0.6em wide, with 1em = 16px default
-    // But be more conservative to account for browser differences
-    const charWidth = 11; // Slightly larger for safety
-    const maxChars = Math.floor(availableWidth / charWidth);
-    
-    // Set tighter bounds with more conservative maximum
-    const bounded = Math.max(24, Math.min(40, maxChars));
-    
-    // Ensure even number for symmetry
-    return bounded % 2 === 0 ? bounded : bounded - 1;
   }
 
   setupTileInteractions() {
