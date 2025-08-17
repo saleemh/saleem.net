@@ -14,6 +14,7 @@ class LabsApp {
     this.setupTheme();
     this.setupKeyboardNavigation();
     this.setupTouchNavigation();
+    this.setupResizeHandler();
     await this.loadProjects();
     this.renderProjects();
   }
@@ -63,6 +64,16 @@ class LabsApp {
     this.handleSwipe = handleSwipe;
   }
 
+  setupResizeHandler() {
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.renderProjects();
+      }, 250);
+    });
+  }
+
   async loadProjects() {
     try {
       const response = await fetch('/data/projects.json');
@@ -109,49 +120,29 @@ class LabsApp {
 
   generateTileContent(project) {
     const lines = [...project.collapsed];
-    const maxWidth = 44;
-    
-    // Create ASCII box
-    const topBorder = '+' + '-'.repeat(maxWidth - 2) + '+';
-    const bottomBorder = topBorder;
     
     const contentLines = lines.map(line => {
-      const paddedLine = line.length > maxWidth - 4 
-        ? line.substring(0, maxWidth - 7) + '...'
-        : line;
-      const padding = maxWidth - paddedLine.length - 4;
-      const leftPad = Math.floor(padding / 2);
-      const rightPad = padding - leftPad;
-      return '| ' + ' '.repeat(leftPad) + paddedLine + ' '.repeat(rightPad) + ' |';
+      return line.length > 40 ? line.substring(0, 37) + '...' : line;
     });
 
     // Add empty lines to maintain consistent height
     while (contentLines.length < 4) {
-      contentLines.push('| ' + ' '.repeat(maxWidth - 4) + ' |');
+      contentLines.push('');
     }
 
-    return [topBorder, ...contentLines, bottomBorder].join('\n');
+    return contentLines.join('\n');
   }
 
   generateExpandedContent(project) {
     const allLines = [...project.collapsed, ...(project.expanded || [])];
-    const maxWidth = 44;
-    
-    const topBorder = '+' + '-'.repeat(maxWidth - 2) + '+';
-    const bottomBorder = topBorder;
     
     const contentLines = allLines.map(line => {
-      const paddedLine = line.length > maxWidth - 4 
-        ? line.substring(0, maxWidth - 7) + '...'
-        : line;
-      const padding = maxWidth - paddedLine.length - 4;
-      const leftPad = Math.floor(padding / 2);
-      const rightPad = padding - leftPad;
-      return '| ' + ' '.repeat(leftPad) + paddedLine + ' '.repeat(rightPad) + ' |';
+      return line.length > 40 ? line.substring(0, 37) + '...' : line;
     });
 
-    return [topBorder, ...contentLines, bottomBorder].join('\n');
+    return contentLines.join('\n');
   }
+
 
   setupTileInteractions() {
     const tiles = document.querySelectorAll('.tile');
