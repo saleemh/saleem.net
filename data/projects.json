@@ -16,13 +16,12 @@
     "id": "candy-bakery",
     "collapsed": [
       "Candy Bakery",
-      "Cozy counter-service browser game",
-      "Assemble candy & cake treats for customers"
+      "Assemble candy & cake treats for customers",
+      "Created: 2025-08-16"
     ],
     "expanded": [
-      "Vanilla HTML/CSS/JS - no frameworks",
-      "Desktop-friendly with keyboard shortcuts",
-      "2-minute days with patience-based scoring"
+      "Cozy counter-service browser game",
+      "2-minute days and desktop-friendly"
     ],
     "visible": true
   }
