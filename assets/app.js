@@ -125,11 +125,6 @@ class LabsApp {
       return line.length > 40 ? line.substring(0, 37) + '...' : line;
     });
 
-    // Add empty lines to maintain consistent height
-    while (contentLines.length < 4) {
-      contentLines.push('');
-    }
-
     return contentLines.join('\n');
   }
 

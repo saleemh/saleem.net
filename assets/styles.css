@@ -120,7 +120,6 @@ body.theme-blue .tile:focus {
   font-family: inherit;
   white-space: pre-line;
   word-wrap: break-word;
-  min-height: 120px;
   padding: 10px;
   text-align: left;
 }
