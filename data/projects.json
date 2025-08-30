@@ -5,11 +5,24 @@
     "collapsed": [
       "Family AI",
       "AI model use w/ shared family memory",
-      "Created: Aug 2025"
+      "Crated: 2025-08-30"
     ],
     "expanded": [
-      "Built on LibreChat",
+      "Built using LibreChat during a flight",
       "Access is restricted, contact me for access"
+    ],
+    "visible": true
+  },
+  {
+    "id": "productivity-tools",
+    "url": "https://notion.saleem.net/productivity-tools",
+    "collapsed": [
+      "Productivity Tools",
+      "Working list of my tools",
+      "Created: 2022-01-30"
+    ],
+    "expanded": [
+      "I tend to keep updated every few weeks"
     ],
     "visible": true
   },
@@ -22,6 +35,7 @@
       "Created: 2025-08-16"
     ],
     "expanded": [
+      "Coded with a 9 yr old's direction",
       "Platforms: desktop + mobile",
       "Play a full game in <1 min"
     ],
@@ -36,6 +50,7 @@
       "Created: 2025-08-17"
     ],
     "expanded": [
+      "One-shot from Sonnet-4 using a 6 yr old's game sketch and description",
       "Cozy counter-service browser game",
       "2-minute days and desktop-friendly"
     ],
