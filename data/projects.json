@@ -1,5 +1,18 @@
 [
   {
+    "id": "story-chef",
+    "url": "https://github.com/saleemh/storychef",
+    "collapsed": [
+      "Story Chef",
+      "Collaborative story writing game",
+      "Currently in development"
+    ],
+    "expanded": [
+      "This is a multiplayer game that allows up to 100 users to simultaneously write creative stories"
+    ],
+    "visible": true
+  },
+  {
     "id": "family-ai",
     "url": "https://chat.saleem.net/login",
     "collapsed": [
