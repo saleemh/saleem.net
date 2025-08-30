@@ -122,12 +122,11 @@ class LabsApp {
     const lines = [...project.collapsed];
     
     const contentLines = lines.map((line, index) => {
-      const truncatedLine = line.length > 40 ? line.substring(0, 37) + '...' : line;
       // Make the first line bold
       if (index === 0) {
-        return `<span class="project-title">${truncatedLine}</span>`;
+        return `<span class="project-title">${line}</span>`;
       }
-      return truncatedLine;
+      return line;
     });
 
     return contentLines.join('\n');
@@ -137,12 +136,11 @@ class LabsApp {
     const allLines = [...project.collapsed, ...(project.expanded || [])];
     
     const contentLines = allLines.map((line, index) => {
-      const truncatedLine = line.length > 40 ? line.substring(0, 37) + '...' : line;
       // Make the first line bold
       if (index === 0) {
-        return `<span class="project-title">${truncatedLine}</span>`;
+        return `<span class="project-title">${line}</span>`;
       }
-      return truncatedLine;
+      return line;
     });
 
     return contentLines.join('\n');
