@@ -102,7 +102,7 @@ body.theme-blue .tile:focus {
   max-width: 400px;
   padding: 10px;
   border: 1px solid currentColor;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
   border-radius: 0;
   min-height: 120px;

@@ -1,14 +1,14 @@
 [
   {
     "id": "family-ai",
-    "url": "https://saleem.net/projects/family-ai",
+    "url": "https://chat.saleem.net/login",
     "collapsed": [
       "Family AI",
       "AI model use w/ shared family memory",
-      "Crated: 2025-08-30"
+      "Created: 2025-08-30"
     ],
     "expanded": [
-      "Built using LibreChat during a flight",
+      "Built using LibreChat during a flight, on an iPad w Claude Code",
       "Access is restricted, contact me for access"
     ],
     "visible": true
