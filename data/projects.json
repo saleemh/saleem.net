@@ -1,5 +1,18 @@
 [
   {
+    "id": "family-ai",
+    "url": "https://saleem.net/projects/family-ai",
+    "collapsed": [
+      "Family AI",
+      "A space for our family to use frontier models while building a shared family memory repository, built on LibreChat",
+      "Created: Aug 2025"
+    ],
+    "expanded": [
+      "Access is restricted, Saleem for access"
+    ],
+    "visible": true
+  },
+  {
     "id": "emera-game",
     "url": "https://saleem.net/projects/emera-game",
     "collapsed": [
