@@ -8,7 +8,7 @@
       "Currently in development"
     ],
     "expanded": [
-      "This is a multiplayer game that allows up to 100 users to simultaneously write creative stories from their imagination"
+      "This is a multiplayer game that allows up to 100 users to simultaneously write creative stories"
     ],
     "visible": true
   },
@@ -21,14 +21,14 @@
       "Created: 2025-08-30"
     ],
     "expanded": [
-      "Built using LibreChat during a flight, on an iPad w Claude Code",
-      "Access is restricted, contact me for access"
+      "Built using LibreChat",
+      "Access is restricted"
     ],
     "visible": true
   },
   {
     "id": "productivity-tools",
-    "url": "https://notion.saleem.net/productivity-tools",
+    "url": "https://saleem.net/productivity-tools",
     "collapsed": [
       "Productivity Tools",
       "Working list of my tools",
