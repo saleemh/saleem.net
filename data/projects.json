@@ -1,14 +1,14 @@
 [
   {
     "id": "story-chef",
-    "url": "https://github.com/saleemh/storychef",
+    "url": "https://penopy.com",
     "collapsed": [
-      "Story Chef",
+      "Penopy",
       "Collaborative story writing game",
       "Currently in development"
     ],
     "expanded": [
-      "This is a multiplayer game that allows up to 100 users to simultaneously write creative stories"
+      "This is a multiplayer game that allows up to 100 users to simultaneously craft stories alongside AI"
     ],
     "visible": true
   },
